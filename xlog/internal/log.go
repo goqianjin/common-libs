@@ -1,0 +1,58 @@
+package internal
+
+import (
+	"context"
+	"io"
+	"log/slog"
+)
+
+// ------ interface ------
+
+type LoggerInternal interface {
+	Log(ctx context.Context, level Level, msg string, args ...any)
+}
+
+// ------ Level ------
+
+type Level = slog.Level
+
+const (
+	LevelTrace = slog.LevelDebug * 2 // 自定义日志级别
+	LevelDebug = slog.LevelDebug
+	LevelInfo  = slog.LevelInfo
+	LevelWarn  = slog.LevelWarn
+	LevelError = slog.LevelError
+	LevelFatal = slog.LevelError * 2 // 自定义日志级别
+)
+
+func FormatLevelToString(l Level) string {
+	switch l {
+	case LevelTrace:
+		return "TRACE"
+	case LevelFatal:
+		return "FATAL"
+	default:
+		return slog.Level(l).String()
+	}
+}
+
+// ------ Format ------
+
+type Format string
+
+const (
+	FormatJSON      Format = "json"
+	FormatText      Format = "text"
+	FormatClassical Format = "classical"
+)
+
+// ------ Option ------
+
+type Option struct {
+	Ctx context.Context
+
+	W         io.Writer // log output, default is os.Stdout
+	Format    *Format   //
+	Level     *Level    // Handler option:
+	AddSource *bool     // Handler option:sdzxxdcddc6y 2354m  v c cx
+}
