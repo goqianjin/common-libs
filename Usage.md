@@ -1,6 +1,3 @@
-## Common Libraries
-
-
 #### Privatize
 
 - Privatize
