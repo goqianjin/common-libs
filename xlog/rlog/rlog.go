@@ -23,6 +23,7 @@ type rawLogger struct {
 	mu *sync.Mutex
 	w  io.Writer
 
+	format     string // JSON and classical
 	level      internal.Level
 	separator  string
 	fieldNames []string
@@ -41,7 +42,8 @@ func (l *rawLogger) Log(ctx context.Context, level internal.Level, msg string, a
 		for _, name := range l.fieldNames {
 			switch name {
 			case FieldNameMessage:
-				_, _ = buf.WriteString(msg)
+				//_, _ = buf.WriteString(msg)
+				appendTextValue(buf, msg)
 			case FieldNameArguments:
 				for _, arg := range args {
 					appendTextValue(buf, arg)

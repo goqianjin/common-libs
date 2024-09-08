@@ -36,4 +36,8 @@ func TestRLog(t *testing.T) {
 	ctx = internal.PutContextAttribute(ctx, "boolAttr1", true)
 	ctx = internal.PutContextAttribute(ctx, "objectAtt1", user.User{Uid: "10001", Username: "xlog owner"})
 	log.Log(ctx, internal.LevelInfo, "RLog with attributes and args by INFO info", "arg1", "arg2")
+
+	// logging - with custom field names
+	log = New(os.Stdout, Option{FieldNames: []string{"timeAttr1", "fakeAttr1", "intAttr1", "boolAttr1", "stringAttr1", FieldNameArguments, FieldNameMessage}})
+	log.Log(ctx, internal.LevelInfo, "RLog with custom field names by INFO info", "arg1", "arg2")
 }

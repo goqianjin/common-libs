@@ -21,10 +21,11 @@ func New(w io.Writer, option Option) internal.LoggerInternal {
 	}
 
 	return &rawLogger{
-		w:         w,
-		mu:        mutex,
-		level:     *option.Level,
-		separator: option.Separator,
+		w:          w,
+		mu:         mutex,
+		level:      *option.Level,
+		separator:  option.Separator,
+		fieldNames: option.FieldNames,
 	}
 }
 
