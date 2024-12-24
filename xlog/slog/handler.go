@@ -34,7 +34,7 @@ func replaceLevelAttr(groups []string, a slog.Attr) slog.Attr {
 
 		switch v {
 		case internal.LevelTrace:
-			// NOTE: 如果不设置，默认日志级别打印为 "level":"DEBUG+2"
+			// Note: 如果不设置，默认日志级别打印为 "level":"DEBUG+2"
 			vLabel = "TRACE"
 		case internal.LevelFatal:
 			vLabel = "FATAL"

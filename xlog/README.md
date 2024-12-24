@@ -76,7 +76,7 @@ logger.Info("logging with constant keys")
 
 ##### XLog has higher performance than both SLog JSON handle and SLog Text handler.
 
-![Benchmark results](screenshot1.png)
+![Benchmark results](resources/screenshot1.png)
 
 
 ##### XLog has higher performance than Qiniu XLog library
@@ -84,7 +84,7 @@ logger.Info("logging with constant keys")
    passing extra arguments after logging message context.
 - `Rich` indicates logging within requestID and source prefix (Qiniu XLog always includes them)
 
-![Benchmark results](screenshot2.png)
+![Benchmark results](resources/screenshot2.png)
 
 
 ### Contributing

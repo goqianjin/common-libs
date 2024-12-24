@@ -4,12 +4,9 @@ import (
 	"context"
 	"log/slog"
 	"runtime"
-	"sync/atomic"
 
 	"github.com/goqianjin/common-libs/xlog/internal"
 )
-
-var renewPC atomic.Bool
 
 // handlerAdapter adapts slog.Handler for xlog.
 // (1) automatically add context attributes (such as reqID, etc.) into slog.Record. Please note that
@@ -31,11 +28,11 @@ func (h handlerAdapter) Handle(ctx context.Context, r slog.Record) error {
 	}
 
 	// adjust fixed caller skip
-	if renewPC.Load() { // rewrite p.PC
+	if h.RenewPC { // rewrite p.PC
 		// SLOG(*slog.Logger.log): skip [runtime.Callers, this function, this function's caller]
-		// NOTE: 这里修改 skip 为 6， 源码中 skip 为 3
-		// skip: [runtime.Callers, (text/json/classical/custom slog.Handler).Handle, this function,
-		//slog.(*Logger).log, slog.(*Logger).Log,
+		// Note: 这里修改 skip 为 6， 源码中 skip 为 3
+		// skip: [runtime.Callers,  this function,
+		// slog.(*Logger).log, slog.(*Logger).Log,
 		// xlog.(*loggerAdapter).Log, loggerAdapter.<Function> or xlog package caller]
 		var pcs [1]uintptr
 		runtime.Callers(6, pcs[:])

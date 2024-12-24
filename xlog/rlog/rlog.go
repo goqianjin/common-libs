@@ -63,8 +63,8 @@ func (l *rawLogger) Log(ctx context.Context, level internal.Level, msg string, a
 			_, _ = buf.WriteString(l.separator)
 		}
 		// message
-		//_, _ = buf.WriteString(msg)
-		appendTextValue(buf, msg)
+		_, _ = buf.WriteString(msg)
+		//appendTextValue(buf, msg)
 		_, _ = buf.WriteString(l.separator)
 		// arguments
 		for _, arg := range args {
@@ -94,11 +94,16 @@ func appendTextValue(buf *buffer.Buffer, v any) {
 		v = nilValue
 	}
 	switch v.(type) {
-	case time.Time:
+	case int, int8, int16, int32, int64, uint, uint8, uint16, uint32, uint64,
+		float32, float64,
+		bool,
+		time.Duration:
+		buf.WriteString(fmt.Sprint(v))
+	case time.Time, *time.Time:
 		buf.WriteString(strconv.Quote(v.(time.Time).Format(TimeFormat)))
 	case string, fmt.Stringer:
 		buf.WriteString(strconv.Quote(fmt.Sprint(v)))
 	default:
-		buf.WriteString(fmt.Sprint(v))
+		buf.WriteString(strconv.Quote(fmt.Sprint(v)))
 	}
 }

@@ -34,7 +34,7 @@ func New(w io.Writer, option Option) internal.LoggerInternal {
 type Option struct {
 	Level *internal.Level // Optional: default 0 is INFO
 
-	// TODO: support Format such as JSON
+	// Todo: support Format such as JSON
 
 	Separator string // Optional: default is '	' (tab character)
 

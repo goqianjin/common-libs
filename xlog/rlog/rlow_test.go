@@ -39,5 +39,7 @@ func TestRLog(t *testing.T) {
 
 	// logging - with custom field names
 	log = New(os.Stdout, Option{FieldNames: []string{"timeAttr1", "fakeAttr1", "intAttr1", "boolAttr1", "stringAttr1", FieldNameArguments, FieldNameMessage}})
-	log.Log(ctx, internal.LevelInfo, "RLog with custom field names by INFO info", "arg1", "arg2")
+	log.Log(ctx, internal.LevelInfo, "RLog with custom field \" names by INFO info", "arg1", "arg2")
+	log.Log(ctx, internal.LevelInfo, `RLog with custom field "	" names by INFO info`, "arg1", "arg2")
+	log.Log(ctx, internal.LevelInfo, `RLog with custom field 中文 names by INFO info`, "arg1", "arg2")
 }
